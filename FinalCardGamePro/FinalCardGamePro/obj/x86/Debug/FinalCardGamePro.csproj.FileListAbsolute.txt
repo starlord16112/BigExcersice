@@ -1,0 +1,8 @@
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\bin\x86\Debug\FinalCardGamePro.exe.config
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\bin\x86\Debug\FinalCardGamePro.exe
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\x86\Debug\FinalCardGamePro.Properties.Resources.resources
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\x86\Debug\FinalCardGamePro.welcome.resources
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\x86\Debug\FinalCardGamePro.csproj.GenerateResource.cache
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\x86\Debug\FinalCardGamePro.csproj.CoreCompileInputs.cache
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\x86\Debug\FinalCardGamePro.exe
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\x86\Debug\FinalCardGamePro.pdb

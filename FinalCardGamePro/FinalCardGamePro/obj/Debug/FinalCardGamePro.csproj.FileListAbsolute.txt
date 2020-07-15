@@ -11,3 +11,5 @@ G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\Debug\FinalCardGa
 G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\Debug\FinalCardGamePro.start.resources
 G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\Debug\FinalCardGamePro.CardGame.resources
 G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\Debug\FinalCardGamePro.Form2.resources
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\Debug\FinalCardGamePro.TopPlayer.resources
+G:\visual_studio_2019\C#\FinalCardGamePro\FinalCardGamePro\obj\Debug\FinalCardGamePro.about.resources

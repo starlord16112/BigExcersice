@@ -7,14 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
+using System.Data.SqlClient;
 
 namespace FinalCardGamePro
 {
     public partial class Form2 : Form
     {
-        
-        
+
+        int countFlipCard = 0;//xem lật đủ 2 card chưa
+        int numberOfCard = 15;//lưu số thẻ chưa lật
+        string timePlay;
         Random random = new Random();
+       
+        SoundPlayer sp = new SoundPlayer("mix_1m20s (audio-joiner.com).wav");
+        SoundPlayer sp1 = new SoundPlayer("mix_1m52s (audio-joiner.com).wav");
+
+        string name;//lưu tên người chơi
+        bool playmusic;
+        string option;
+
+        SqlConnection conn = new SqlConnection("Data Source = DESKTOP-NGS7NIL;Initial Catalog = FlipCardGame;User ID=sa;Password=123456");
+
+
+
+       
         card1[,] cardlist = new card1[5, 6];
         int[,] arr = new int[5, 6];
         List<int> mlist = new List<int>(30);
@@ -22,22 +39,13 @@ namespace FinalCardGamePro
         public Form2()
         {
             InitializeComponent();
-            /*listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\batman.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\flash.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\naruto.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\spiderman.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\ironman   .png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\magneto.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\cyclop.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\superman.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\9.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\10.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\11.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\12.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\13.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\14.png");
-            listLocationImage.Add("G:\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\15.png");*/
-
+         }
+        public Form2(string name, bool playmusic, string option)
+        {
+            InitializeComponent();
+            this.name = name;
+            this.playmusic = playmusic;
+            this.option = option;
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -74,7 +82,7 @@ namespace FinalCardGamePro
             {
                 item.BackColor = Color.DarkTurquoise;
                 item.BorderStyle = BorderStyle.FixedSingle;
-               /* item.ImageLocation = cardlist[row,col].path;
+                /*item.ImageLocation = cardlist[row,col].path;
                 item.SizeMode = PictureBoxSizeMode.StretchImage;*/
               
                 col++;
@@ -87,6 +95,7 @@ namespace FinalCardGamePro
                 }
 
             }
+            timer2.Start();
         }
         PictureBox pb1;
         PictureBox pb2;
@@ -143,6 +152,24 @@ namespace FinalCardGamePro
                 {
                     pb1.Visible = false;
                     pb2.Visible = false;
+                    numberOfCard--;
+                    if (numberOfCard == 0)
+                    {
+                        timer2.Stop();
+                        if (MessageBox.Show("Finish! You win\nYour time: " + label17.Text + "m" + label18.Text + "s", "System", MessageBoxButtons.OK) == DialogResult.OK)
+                        {
+                            conn.Open();
+                            SqlCommand cmd = new SqlCommand("insert into Normal values(@name,@time,@timeint)", conn);
+                            cmd.Parameters.Add("@name", this.name);
+                            cmd.Parameters.Add("@time", label17.Text + "m" + label18.Text + "s");
+                            cmd.Parameters.Add("@timeint", Convert.ToInt32(label17.Text) * 60 + Convert.ToInt32(label18.Text));
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+
+
+                        }
+
+                    }
                     pb1 = null;
                     pb2 = null;
                 }
@@ -166,6 +193,87 @@ namespace FinalCardGamePro
             catch (Exception)
             {
 
+            }
+        }
+
+      
+      
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Enabled = false;
+            timer2.Stop();
+            DialogResult dialogResult = MessageBox.Show("Close this  game", "System", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult != DialogResult.Yes)
+            {
+                timer2.Start();
+                e.Cancel = true;
+                this.Enabled = true;
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        { 
+         int a = Convert.ToInt32(label17.Text);
+        int b = Convert.ToInt32(label18.Text);
+        b++;
+            if(b > 59)
+            {
+                a++;
+                b = 0;
+            }    
+            if(b< 10)
+            {
+                label18.Text = "0" + b;
+
+            }  
+            else
+            {
+                label18.Text = "" + b;
+            }  
+            if(a > 10)
+            {
+                label17.Text = "" + a;
+            }    
+          else
+            {
+                label17.Text = "0" + a;
+            }    
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+           /* if (numberOfCard == 0)
+                {
+                    this.Close();
+                }
+                this.Enabled = false;
+                timer2.Stop();
+                if (MessageBox.Show("Are you sure?...", "System", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    this.Close();
+
+                }
+                timer2.Start();
+                this.Enabled = true;*/
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (playmusic == true)
+            {
+                playmusic = false;
+
+                sp1.Stop();
+
+            }
+            else
+            {
+                playmusic = true;
+                sp.PlayLooping();
             }
         }
     }

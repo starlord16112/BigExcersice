@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using System.Windows.Forms.VisualStyles;
+using System.Data.SqlClient;
 
 namespace FinalCardGamePro
 {
@@ -17,18 +18,21 @@ namespace FinalCardGamePro
     {
 
         //khởi tạo mảng 2 chiều gồm các đối tượng card
-        Card flipCard;
+      //  Card flipCard;
 
         int countFlipCard = 0;//xem lật đủ 2 card chưa
         int numberOfCard = 8;//lưu số thẻ chưa lật
-
+        string timePlay;
         Random random = new Random();
         Card[,] cardlist = new Card[4, 4];
-        SoundPlayer sp = new SoundPlayer("Fluffing a Duck - Vanoss Gaming Background Music (HD) (online-audio-converter.com).wav");
-        int countdown = 3;
+        SoundPlayer sp = new SoundPlayer("mix_1m20s (audio-joiner.com).wav");
+        SoundPlayer sp1 = new SoundPlayer("mix_1m52s (audio-joiner.com).wav");
+       
+        string name;//lưu tên người chơi
+        bool playmusic;
+        string option;
 
-
-
+        SqlConnection conn = new SqlConnection("Data Source = DESKTOP-NGS7NIL;Initial Catalog = FlipCardGame;User ID=sa;Password=123456");
 
 
         public CardGame()
@@ -38,114 +42,73 @@ namespace FinalCardGamePro
 
 
         }
-        /*Label ilabel = new Label(); // create a label
-Image i = Image.FromFile("image.png"); // read in image
-ilabel.Size = new Size(i.Width, i.Height); //set label to correct size
-ilabel.Image = i; // put image on label
-this.Controls.Add(ilabel); // add label to container (a form, for instance)*/
-        /*  private void card1_Click(object sender, EventArgs e)
-         *  protected void btn_Click (object sender, EventArgs e){
-     Button btn = sender as Button;
-     btn.Text = "clicked!";
-  }
-          {
+        public CardGame(string name,bool playmusic,string option)
+        {
+            InitializeComponent();
+            this.name = name;
+            this.playmusic = playmusic;
+            this.option = option;
 
-          }*/
+
+
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-          /*  while (countdown > 0)
-            {
-                timer3.Start();
-            }*/
            
-
-            
-
-
-
-                //  sp.Play();
-                //khi form load xong thì random các thẻ 
-                //  Random random = new Random();
-                int[,] arr = new int[4, 4];
-                List<int> mlist = new List<int>(16);
-                for (int i = 0; i < 4; i++)
+           
+            //khi form load xong thì random các thẻ 
+            //  Random random = new Random();
+            int[,] arr = new int[4, 4];
+            List<int> mlist = new List<int>(16);
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
                 {
-                    for (int j = 0; j < 4; j++)
-                    {
 
-                        while (true)
+                    while (true)
+                    {
+                        arr[i, j] = random.Next(maxValue: 8);
+                        cardlist[i, j] = new Card(arr[i, j]);
+                        mlist.Add(arr[i, j]);
+                        int count = 0;
+                        foreach (int item in mlist)
                         {
-                            arr[i, j] = random.Next(maxValue: 8);
-                            cardlist[i, j] = new Card(arr[i, j]);
-                            mlist.Add(arr[i, j]);
-                            int count = 0;
-                            foreach (int item in mlist)
-                            {
-                                if (item == arr[i, j])
-                                    count++;
-                            }
-                            if (count <= 2)
-                            {
-                                break;
-                            }
-
+                            if (item == arr[i, j])
+                                count++;
                         }
-
-                    }
-                }
-                /*for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        Console.Write(arr[i, j] + "  ");
-
-                    }
-                    Console.WriteLine();
-                }*/
-                int m = 0, n = 0;
-                foreach (Label item in tableLayoutPanel1.Controls)
-
-                {
-                    item.BackColor = Color.Black;
-
-                    /*  if (cardlist[m, n].Color == "Red")
-                               item.BackColor = Color.Red;
-                           else if (cardlist[m, n].Color == "Green")
-                               item.BackColor = Color.Green;
-                           else if (cardlist[m, n].Color == "Blue")
-                               item.BackColor = Color.Blue;
-                           else if (cardlist[m, n].Color == "Yellow")
-                               item.BackColor = Color.Yellow;
-                           else if (cardlist[m, n].Color == "DarkViolet")
-                               item.BackColor = Color.DarkViolet;
-                           else if (cardlist[m, n].Color == "Cyan")
-                               item.BackColor = Color.Cyan;
-                           else if (cardlist[m, n].Color == "DeepPink")
-                               item.BackColor = Color.DeepPink;
-                           else 
-                               item.BackColor = Color.Gray;*/
-
-                    timer2.Start();
-
-
-
-
-
-
-
-                    n++;
-                    if (n == 4)
-                    {
-                        m++;
-                        n = 0;
-                        if (m == 4) break;
+                        if (count <= 2)
+                        {
+                            break;
+                        }
 
                     }
 
                 }
             }
-        
+
+            int m = 0, n = 0;
+            foreach (Label item in tableLayoutPanel1.Controls)
+
+            {
+                item.BackColor = Color.Black;
+                n++;
+                if (n == 4)
+                {
+                    m++;
+                    n = 0;
+                    if (m == 4) break;
+
+                }
+
+            }
+       
+            
+            timer2.Start();
+           
+            
+
+         }
         Label clicklabel1;
         Label clicklabel2;
         bool kt = true;
@@ -207,8 +170,29 @@ this.Controls.Add(ilabel); // add label to container (a form, for instance)*/
             {
                 if (clicklabel1.BackColor == clicklabel2.BackColor && clicklabel1.Text != clicklabel2.Text)
                 {
+
+                    
                     clicklabel1.Visible = false;
                     clicklabel2.Visible = false;
+                    numberOfCard--;
+                    if(numberOfCard == 0)
+                    {
+                        timer2.Stop();
+                        if (MessageBox.Show("Finish! You win\nYour time: "+ label17.Text + "m" + label18.Text + "s", "System", MessageBoxButtons.OK) == DialogResult.OK)
+                        {
+                            conn.Open();
+                            SqlCommand cmd = new SqlCommand("insert into Easy values(@name,@time,@timeint)",conn);
+                            cmd.Parameters.Add("@name", this.name);
+                            cmd.Parameters.Add("@time", label17.Text + "m" + label18.Text + "s");
+                            cmd.Parameters.Add("@timeint", Convert.ToInt32(label17.Text) * 60 + Convert.ToInt32(label18.Text));
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                            
+
+                        }    
+
+                    }   
+                     
                     clicklabel1 = null;
                     clicklabel2 = null;
                 }
@@ -271,6 +255,58 @@ this.Controls.Add(ilabel); // add label to container (a form, for instance)*/
             
             MessageBox.Show("" + countdown--);*/
                  }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+         /*   if(numberOfCard == 0)
+            {
+                this.Close();
+            }    
+                this.Enabled = false;
+                timer2.Stop();
+                if (MessageBox.Show("Are you sure?...", "System", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    this.Close();
+
+                }
+                timer2.Start();
+                this.Enabled = true;*/
+            
+          
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (playmusic == true)
+            {
+                playmusic = false;
+                
+                sp1.Stop();
+
+            }
+            else
+            {
+                playmusic = true;
+                sp.PlayLooping();
+            }
+        }
+
+        private void CardGame_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            timer2.Stop();
+            this.Enabled = false;
+
+            DialogResult dialogResult = MessageBox.Show("Exit game", "System", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult != DialogResult.Yes)
+            {
+                e.Cancel = true;
+                timer2.Start();
+                this.Enabled = true;
+            }
+        }
+
+
 
         /*private void label19_Click(object sender, EventArgs e)
         {

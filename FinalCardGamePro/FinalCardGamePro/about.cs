@@ -16,5 +16,10 @@ namespace FinalCardGamePro
         {
             InitializeComponent();
         }
+
+        private void about_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

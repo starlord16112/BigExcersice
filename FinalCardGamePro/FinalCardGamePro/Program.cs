@@ -16,7 +16,7 @@ namespace FinalCardGamePro
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CardGame());
+            Application.Run(new welcome());
         }
     }
 }

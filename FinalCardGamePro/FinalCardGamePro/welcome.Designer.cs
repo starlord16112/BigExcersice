@@ -115,6 +115,7 @@
             this.button2.TabIndex = 11;
             this.button2.Text = "About";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // bt_top
             // 
@@ -126,6 +127,7 @@
             this.bt_top.TabIndex = 10;
             this.bt_top.Text = "Top Player";
             this.bt_top.UseVisualStyleBackColor = false;
+            this.bt_top.Click += new System.EventHandler(this.bt_top_Click);
             // 
             // bt_go
             // 

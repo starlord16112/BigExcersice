@@ -20,7 +20,7 @@ namespace FinalCardGamePro
 
             if (i == 0)
             { 
-                path = "G:\\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\9.png";
+                path = "G:\\visual_studio_2019\\C#\\FinalCardGamePro\\FinalCardGamePro\\bin\\Debug\\poseidon.png";
 
             }    
             else if (i == 1)

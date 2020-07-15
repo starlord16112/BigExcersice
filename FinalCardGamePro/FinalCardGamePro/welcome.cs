@@ -89,5 +89,27 @@ namespace FinalCardGamePro
             //event button exit
             Application.Exit();
         }
+
+        private void bt_top_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            TopPlayer t = new TopPlayer();
+            t.ShowDialog();
+            this.Show();
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            about ab = new about();
+            ab.ShowDialog();
+            this.Show();
+        }
+
+        /*private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }*/
     }
 }

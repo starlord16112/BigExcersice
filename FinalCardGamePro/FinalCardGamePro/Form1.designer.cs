@@ -52,6 +52,10 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.label20 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label21 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -282,7 +286,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 800;
+            this.timer1.Interval = 400;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // timer2
@@ -294,7 +298,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(627, 65);
+            this.label17.Location = new System.Drawing.Point(645, 98);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(76, 33);
             this.label17.TabIndex = 1;
@@ -304,7 +308,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(727, 65);
+            this.label18.Location = new System.Drawing.Point(757, 98);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(49, 33);
             this.label18.TabIndex = 2;
@@ -314,7 +318,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(688, 65);
+            this.label19.Location = new System.Drawing.Point(714, 98);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(24, 33);
             this.label19.TabIndex = 3;
@@ -325,12 +329,58 @@
             this.timer3.Interval = 1000;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("MV Boli", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(644, 26);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(0, 41);
+            this.label20.TabIndex = 4;
+            this.label20.Tag = "";
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(763, 424);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 60);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Quit";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("MV Boli", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(673, 57);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(94, 41);
+            this.label21.TabIndex = 8;
+            this.label21.Text = "Time";
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::FinalCardGamePro.Properties.Resources.icons8_speaker_100;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(630, 424);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 60);
+            this.button1.TabIndex = 9;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // CardGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(860, 536);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
@@ -338,6 +388,7 @@
             this.MaximumSize = new System.Drawing.Size(1000, 655);
             this.MinimumSize = new System.Drawing.Size(465, 317);
             this.Name = "CardGame";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CardGame_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -371,6 +422,10 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button button1;
     }
 }
 

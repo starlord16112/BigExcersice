@@ -14,8 +14,8 @@ namespace FinalCardGamePro
 {
     public partial class start : Form
     {
-        public SoundPlayer sp2 = new SoundPlayer("Fluffing a Duck - Vanoss Gaming Background Music (HD) (online-audio-converter.com).wav");
-
+         SoundPlayer sp2 = new SoundPlayer("Fluffing a Duck - Vanoss Gaming Background Music (HD) (online-audio-converter.com).wav");
+        SoundPlayer sp1 = new SoundPlayer("mix_1m52s (audio-joiner.com).wav");
 
         public bool playmusic;//biến bật tắt âm
         public start()
@@ -74,15 +74,31 @@ namespace FinalCardGamePro
             }   
             else
             {
-                if(comboBox1.SelectedIndex == 0)
+
+                //nếu nhập đúng rồi thì hỏi sẵn sàng chưa
+                if (MessageBox.Show("Are you ready?...", "System", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    CardGame g1 = new CardGame();
-                    this.Hide();
-                   
-                    g1.ShowDialog();
-                    this.Show();
-                }
-           
+                    if(playmusic == true)
+                    {
+                        sp1.PlayLooping();
+                    }    
+                    if (comboBox1.SelectedIndex == 0)
+                    {
+                        CardGame g1 = new CardGame(textBox1.Text, playmusic, comboBox1.Text);
+                        this.Hide();
+
+                        g1.ShowDialog();
+                        this.Show();
+                    }
+                    else
+                    {
+                        Form2 g2 = new Form2(textBox1.Text, playmusic, comboBox1.Text);
+                        this.Hide();
+                        g2.ShowDialog();
+                        this.Show();
+
+                    }
+                }                
             }    
         }
     }
